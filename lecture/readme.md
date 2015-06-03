@@ -1,91 +1,213 @@
-class poll, who is scared of js, who is excited, who hates js
+* functions in JS are not that different, except they are
+* problem:functions do everything in JS
 
-  * confession
-    * i'm not a javascript master
-  * what do you hate about javascript?
-    * underscore
-    * browser incompatibility?
-    * why do people hate on IE?
-    * why are browsers incompatible but ruby never is?
-    * ie
-      * jquery
-  * why javascript?
-    * <https://www.w3.org/community/webed/wiki/A_Short_History_of_JavaScript>
-  * java vs javascript
-  * v8
-  * is javascript faster?
-   * <https://attractivechaos.github.io/plb/>  
-  * node
-    * what’s so good about node?
-    * why aren’t we learning node if it’s so good?
-  * what’s the difference between backbone and node?
-    * October 13, 2010 Backbone
-  * javascript as a compiler target
-    * clojurescript
-    * coffeescript
-  * why are people excited about javascript?
-    * single page apps
-      * ember
-      * angular
-      * backbone
-    * react
-    * JSON
-  * dontbeahater
-    * <https://docs.google.com/presentation/d/1kp14LFvagMeM-gDozF7i29h25pHoouzBqubWOPyfs_s/edit#slide=id.p>  
-  * let’s write some js
-    * REPL (node if you want) (NVM)
-    sources
-      * command + o
-      * stacktrace
-      * errors blow up the whole program (silently)
-  * let’s do the etl lab
-    * jasmine
-    * ironboard
-    * ironboard -b
-    * debugger/breakpoints
-    * opening console on the sources tab
-  * lets do it in ruby first
-    * make a new hash
-    * iterate over keys 
-    do something with each key
-      * functions as first class objects
-        * set the property of new hash to be the elements of the array that is the value for each key and lowercase them
-        * set the value for that key to be the number version of the string key
-        * return the new hash
-  * write it in js
-    * [SEMICOLONS](http://www.codecademy.com/blog/78-your-guide-to-semicolons-in-javascript)
-    * objects are very similar to hashes
-    * create a variable, assign it a value
-    * access a property of an object/hash
-    * functions as first class objects, anonymous functions passed like a block as a callback
-    * functions don’t have to be methods
-    * for/ in obj
-    * forEach
-    * toLowerCase()
-    * Number(string)
-    * explicit return
-    * NOT COVERED in this lab
-      * for loop
-        
-      ```javascript  
-        for (var i = 0; i < 4; i++) {   
-          console.log(i);  
-        }
-      ```
+* functions can take functions as arguments
+* anonymous functions are just like blocks
+* similar to blocks, functions can see outside variables
 
-  * gotchas
-    * iterating over keys or values in an object
-    if you do this  
+build add, foreach, map, sum, reduce/inject
 
-      ```javascript
-      for (var prop in obj) { }
-      ```  
-    this can show you inherited properties  
-      ```javascript
-      for (var prop in obj) {
-        if (obj.hasOwnProperty(prop)) {
-          // prop is not inherited
-        }
-      }
-      ```
-    * if you use it to iterate over an array you can run into all sorts of problems. just use a regular for loop
+```javascript
+function add(a,b) {
+  return a + b;
+}
+
+function forEach(array, action) {
+  for (var i = 0; i < array.length; i++) {
+    action(array[i]);
+  }
+}
+
+* functions can be defined within functions
+* explicit return
+function map(array, func) {
+  var result = [];
+  forEach(array, function (element) {
+    result.push(func(element));
+  });
+  return result;
+}
+
+* functions defined inside of functions create a closure
+* they can see the scope of the parent function
+function reduce(combine, base, array) {
+  forEach(array, function (element) {
+    base = combine(base, element);
+  });
+  return base;
+}
+
+* functions defined inside of functions create a closure
+* they can see the scope of the parent function
+function reduce2(combine, base, array) {
+  forEach(array, combiner);
+  function combiner(element) {
+    base = combine(base, element);
+  }
+  return base;
+}
+
+
+function sum(numbers) {
+  return reduce(add, 0, numbers);
+}
+```
+
+* things to point out
+* - we're passing an anonymous function as an argument to a method (this is very similar to passing a block)
+* - we "yield" to our anonymous function by calling/invoking the method
+* - in reduce how can the anonymous function in the call to each "see" the base variable
+
+
+* why is scope so confusing in javascript?
+* In Ruby, the native syntax/constructs of the language impose scope upon us.  We don't really have to think about scope, it works naturally to our advantage.  It's rare variables stick around when we don't want them to.
+
+* In javascript, there's almost no scope by default.  By default variables want to be in the global scope.  By default functions can see variables outside of their lexical scope. We have to think a lot about what can see what, whereas the rules in ruby are simple.
+
+* function scope
+* - function environments
+*  - scope layers
+
+```javascript
+var aVar = "a"
+function a (pass) {
+     var bVar = "b"
+     function b (pass) {
+          var cVar = "c"
+          function c (pass) {
+               console.log(cVar)
+               console.log(aVar)
+               console.log(bVar)
+               console.log(pass)
+          }
+          c(pass)
+     }
+     b(pass)
+}
+a("passing this down")
+```
+
+*  - shadowing
+*  - operator precedence
+
+```javascript
+ function printVariable() { 
+   console.log("inside printVariable, the variable holds '" +        variable + "'.");
+ }
+ function test() {  
+   var variable = "local"; 
+   var variable = "top-level";  
+   console.log("inside test, the variable holds '" + variable + "'.");  
+   printVariable();
+ }
+ test();
+```
+
+ * How about objects
+ * a million ways to create objects
+ * an object is just a collections of properties and values
+ * values can be functions
+ * we could just hang a function on an object and suddenly were doing oo
+ * oo is just data and behavoir
+ * essentially we want a factory that creates like things
+
+ ```javascript
+ function School () {
+   this.db = {}
+ }
+ School.prototype.add = function (student, grade) {
+   if(this.db[grade]) {
+     this.db[grade].push(student);
+   } else {
+     this.db[grade] = [student];
+   }
+ }
+   
+ School.prototype.grade = function (level) {
+   return this.db[level] ? this.db[level].sort() : [];
+ }
+
+ var school = new School()
+```
+
+* context vs scope
+
+* context
+* why is this maddening to a rubyist? context never changes.  
+* methods belong to objects and there's no reason for them ever to disattach themselves.  
+* BUT most of the time things work fine.
+- this works normally for constructor
+- this works normally for method calls
+- calling functions within methods screws you
+
+```javascript
+function Jane () {
+  this.myName = 'Jane';    
+  this.friends = ['Tarzan','Cheeta'];
+}
+Jane.prototype.logHiToFriends = function(){
+  debugger
+  this.friends.forEach(function(friend){
+      // `this` is undefined here
+      // show this function logging the value of "this" 
+      debugger           
+      console.log(this.myName+' says hi to '+friend);
+  });
+}
+var jane = new Jane()
+jane.logHiToFriends()
+```
+
+- grabbing functions off objects screws you
+
+```javascript
+var person = {
+    name: 'Jane',    
+    logMyName: function(){
+        console.log(this.name)
+    }
+}
+person.logMyName(); // works
+var logMyName = person.logMyName;
+logMyName();  //doesn't work
+```
+
+how to fix
+WAY1
+
+```javascript
+function Jane () {
+  this.myName = 'Jane';    
+  this.friends = ['Tarzan','Cheeta'];
+}
+Jane.prototype.logHiToFriends = function(){
+  // or var self = this;
+  this.friends.forEach(function(friend){           
+      console.log(this.myName+' says hi to '+friend);
+  }, this);
+}
+var jane = new Jane();
+jane.logHiToFriends()
+```
+
+WAY2
+
+```javascript
+function Jane () {
+  this.myName = 'Jane';    
+  this.friends = ['Tarzan','Cheeta'];
+}
+Jane.prototype.logHiToFriends = function(){
+  var that = this;
+  // or var self = this;
+  this.friends.forEach(function(friend){           
+      console.log(that.myName+' says hi to '+friend);
+  });
+}
+var jane = new Jane();
+jane.logHiToFriends()
+```
+
+```javascript
+for (var prop in obj) { }
+```  
