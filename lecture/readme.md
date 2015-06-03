@@ -136,9 +136,9 @@ a("passing this down")
 * why is this maddening to a rubyist? context never changes.  
 * methods belong to objects and there's no reason for them ever to disattach themselves.  
 * BUT most of the time things work fine.
-- this works normally for constructor
-- this works normally for method calls
-- calling functions within methods screws you
+  * this works normally for constructor
+  * this works normally for method calls
+  * calling functions within methods screws you
 
 ```javascript
 function Jane () {
