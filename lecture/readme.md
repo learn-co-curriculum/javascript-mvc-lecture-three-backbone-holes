@@ -54,9 +54,9 @@ function sum(numbers) {
 ```
 
 * things to point out
-* - we're passing an anonymous function as an argument to a method (this is very similar to passing a block)
-* - we "yield" to our anonymous function by calling/invoking the method
-* - in reduce how can the anonymous function in the call to each "see" the base variable
+  * we're passing an anonymous function as an argument to a method (this is very similar to passing a block)
+  * we "yield" to our anonymous function by calling/invoking the method
+  * in reduce how can the anonymous function in the call to each "see" the base variable
 
 
 * why is scope so confusing in javascript?
@@ -65,8 +65,8 @@ function sum(numbers) {
 * In javascript, there's almost no scope by default.  By default variables want to be in the global scope.  By default functions can see variables outside of their lexical scope. We have to think a lot about what can see what, whereas the rules in ruby are simple.
 
 * function scope
-* - function environments
-*  - scope layers
+  * function environments
+*   scope layers
 
 ```javascript
 var aVar = "a"
