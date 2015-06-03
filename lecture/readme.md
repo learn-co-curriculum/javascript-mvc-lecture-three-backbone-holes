@@ -19,7 +19,8 @@ User Input, User Interface(templates), Data**
     * Rasmus lerdorf
     * mysql/php
     * DHH makes rails flavored MVC
-<en-media hash="3c6f062e58455dc227a3ea0fecce0af6" style="max-width: 100%; height: auto;" type="image/png"/>
+
+![Rails Flavored MVC] (http://addyosmani.github.io/backbone-fundamentals/img/rails_mvc.png)
 
   *     * <div markdown="1" style="padding: 0px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', Arial, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
 
