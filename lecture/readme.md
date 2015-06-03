@@ -87,8 +87,8 @@ function a (pass) {
 a("passing this down")
 ```
 
-*  - shadowing
-*  - operator precedence
+* shadowing
+* operator precedence
 
 ```javascript
  function printVariable() { 
@@ -158,7 +158,7 @@ var jane = new Jane()
 jane.logHiToFriends()
 ```
 
-- grabbing functions off objects screws you
+* grabbing functions off objects screws you
 
 ```javascript
 var person = {
