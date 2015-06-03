@@ -18,10 +18,9 @@ User Input, User Interface(templates), Data**
   * web apps start being written
     * Rasmus lerdorf
     * mysql/php
+    ![Rails Flavored MVC] (http://addyosmani.github.io/backbone-fundamentals/img/rails_mvc.png)
+    
     * DHH makes rails flavored MVC
-
-![Rails Flavored MVC] (http://addyosmani.github.io/backbone-fundamentals/img/rails_mvc.png)
-
       * Models represent the data in an application and are typically used to manage rules for interacting with a specific database table. You generally have one table corresponding to one model with much of your application’s business logic living within these models.
       * Views represent your user interface, often taking the form of HTML that will be sent down to the browser. They’re used to present application data to anything making requests from your application.
       * Controllers offer the glue between models and views. Their responsibility is to process requests from the browser, ask your models for data and then supply this data to views so that they may be presented to the browser.
